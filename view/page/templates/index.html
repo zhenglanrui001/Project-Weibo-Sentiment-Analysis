@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-4 mt-1">
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <h4 class="font-weight-bold">首页</h4>
+
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="">
+                                        <p class="mb-2 text-secondary">微博文章总量</p>
+                                        <div class="d-flex flex-wrap justify-content-start align-items-center">
+                                            <h5 class="mb-0 font-weight-bold" id="totalArticle">无数据</h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="">
+                                        <p class="mb-2 text-secondary">最高点赞微博-作者</p>
+                                        <div class="d-flex flex-wrap justify-content-start align-items-center">
+                                            <h5 class="mb-0 font-weight-bold" id="topAuthor">无数据</h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="">
+                                        <p class="mb-2 text-secondary">微博点赞最多-城市</p>
+                                        <div class="d-flex flex-wrap justify-content-start align-items-center">
+                                            <h5 class="mb-0 font-weight-bold" id="topRegion">无数据</h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                    <h4 class="font-weight-bold">最近七天微博发布量</h4>
+
+                                </div>
+                                <div id="article7fbl" style="width: 100%;height: 300px" class="custom-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8">
+                <div class="card card-block card-stretch card-height">
+                    <div class="card-header card-header-border d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">微博点赞量Top6</h4>
+                        </div>
+                    </div>
+                    <div class="card-body-list">
+                        <ul class="list-style-3 mb-0" id="topArticle">
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold mb-3">微博类型占比饼状图</h4>
+                        <div id="articleTypeZb" style="width:100%;height:450px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold mb-3">评论用户名词云图</h4>
+                        <img style="width:100%" src="/static/comment_user_cloud.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold mb-3">评论用户时间占比环形饼状图</h4>
+                        <div id="commentUserZb" style="width:100%;height:450px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page end  -->
+    </div>
+{% endblock %}
+{% block echarts %}
+
+{% endblock %}

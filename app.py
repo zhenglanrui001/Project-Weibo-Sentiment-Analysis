@@ -5,7 +5,7 @@ from view.user import user
 
 app = Flask(__name__)
 
-
+app.secret_key = 'weibo2026'
 # 注册蓝图
 app.register_blueprint(page.pb)
 app.register_blueprint(user.ub)
