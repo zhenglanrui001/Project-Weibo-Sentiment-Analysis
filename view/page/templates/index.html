@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="card-body-list">
-                        <ul class="list-style-3 mb-0" id="topArticle">
+                        <ul class="list-style-3 mb-0" id="articleTop">
 
                         </ul>
                     </div>
@@ -113,5 +113,67 @@
     </div>
 {% endblock %}
 {% block echarts %}
+    <script>
+        function truncateString(str, length) {
+            if (str.length > length) {
+                return str.slice(0, length) + '...';
+            } else {
+                return str;
+            }
+        }
+        function getHomePageData() {
+            $.get('/page/homePageData', function (result) {
+                $('#totalArticle').text(result.totalArticle + '个')
+                $('#topAuthor').text(result.topAuthor)
+                $('#topRegion').text(result.topRegion)
+                let articleTop6 = result.articleTop6
+                $("#articleTop").empty()
+                for (let i = 0; i < articleTop6.length; i++) {
+                    const article = articleTop6[i]
+                    $("#articleTop").append('<li class="p-3 list-item d-flex justify-content-start align-items-center">' +
+                        '<div class="list-style-detail ml-3 mr-2">' +
+                        '<p class="mb-0">' + truncateString(article[0], 20) + '</p>' +
+                        '</div>' +
+                        '<div class="list-style-action d-flex justify-content-end ml-auto">' +
+                        '<h6 class="font-weight-bold">' + article[1] + '🔥</h6>' +
+                        '</div>' +
+                        '</li>')
+                }
+            })
+        }
 
+        $(function () {
+            getHomePageData()
+            const timerId = setInterval(()=>{
+                getHomePageData()
+            }, 1000 * 60 * 5)  // 5min更新一次
+        })
+    </script>
+    <script>
+        var chartDom = document.getElementById('article7fbl');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            xAxis: {
+                name: '微博发布日期',
+                type: 'category',
+                boundaryGap: false,
+                data: {{ xAxis7ArticleData | tojson }}
+            },
+            yAxis: {
+                name: '微博发布量',
+                type: 'value'
+            },
+            series: [
+                {
+                    data: {{ yAxis7ArticleData }},
+                    type: 'line',
+                    areaStyle: {}
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    </script>
 {% endblock %}

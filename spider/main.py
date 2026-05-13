@@ -55,11 +55,11 @@ def saveTodb():
 
 if __name__ == '__main__':
     print('微博内容爬取开始！')
-    # articleSpiderStart()
+    articleSpiderStart()
     print('微博内容爬取结束！')
 
     print('微博评论爬取开始！')
-    # commentSpiderStart()
+    commentSpiderStart()
     print('微博评论爬取结束！')
 
     print('数据清洗开始！')

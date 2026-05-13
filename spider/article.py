@@ -4,7 +4,6 @@
 """
 import csv
 
-
 import os
 import time
 from datetime import datetime
@@ -30,11 +29,11 @@ def init_csv():
                 'attitudes_count',  # 点赞数
                 'region_name',  # 发布位置
                 'created_at',  # 发布时间
-                'articleType',  # 文章类型
                 'articleUrl',  # 文章链接
                 'authorId',  # 作者id
                 'authorName',  # 作者名
                 'authorHomeUrl',  # 作者主页
+                'articleType',  # 文章类型
             ])
 
 
@@ -61,13 +60,14 @@ def getJsonHtml(url, params):
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
         "referer": "https://weibo.com/102803",
-        "cookie": "SCF=AvuehX7Rfiz9E7PwsRVGdkJkm6t0Km-Xqa4Fy0Dth-2dupmJhIMtVLg-_wR80xIW2c2PZAkVmjV3DDL3EQeSMLA.; _s_tentry=weibo.com; Apache=6596701156064.359.1777363611744; SINAGLOBAL=6596701156064.359.1777363611744; ULV=1777363611814:1:1:1:6596701156064.359.1777363611744:; XSRF-TOKEN=hf59qWqNyPB2JZouvzewAH2I; ALF=1780647456; SUB=_2A25E_olwDeRhGeBG6lQZ9CzEzz-IHXVkdYS4rDV8PUJbkNANLUj8kW1NRjauA3oisqoxsy_-XcEEJBup3Iv5Hls3; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5nW6q98Ou9vV-WM_CL7PUP5JpX5KMhUgL.FoqReKqRShzRShe2dJLoIEBLxK.L1KnLB.qLxKBLBonL1K.LxKBLBonL1K.LxKBLBonL1K.t; WBPSESS=MIv-QR_yJFBFNxItr3xH5VHRuMhBgVBo2J5qMUR_Nev8M8yFrgZGTJLqyClKWqFYJo9VdXihjOMZ3CFtZDEfUG9VhxvK2NXEAm5joWEqJWRD322bPsp5uwjBXQVrsO03mR-mvJtod7Xa-E3uJA8rrA=="
+        "cookie": "SCF=AvuehX7Rfiz9E7PwsRVGdkJkm6t0Km-Xqa4Fy0Dth-2dupmJhIMtVLg-_wR80xIW2c2PZAkVmjV3DDL3EQeSMLA.; _s_tentry=weibo.com; Apache=6596701156064.359.1777363611744; SINAGLOBAL=6596701156064.359.1777363611744; ULV=1777363611814:1:1:1:6596701156064.359.1777363611744:; XSRF-TOKEN=hf59qWqNyPB2JZouvzewAH2I; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5nW6q98Ou9vV-WM_CL7PUP5JpX5KMhUgL.FoqReKqRShzRShe2dJLoIEBLxK.L1KnLB.qLxKBLBonL1K.LxKBLBonL1K.LxKBLBonL1K.t; ALF=1781314858; SUB=_2A25HAVh6DeRhGeBG6lQZ9CzEzz-IHXVkf9WyrDV8PUJbkNANLXDBkW1NRjauA5UzINa-wrR5qix_EKMPakqw3EKS; WBPSESS=MIv-QR_yJFBFNxItr3xH5VHRuMhBgVBo2J5qMUR_Nev8M8yFrgZGTJLqyClKWqFYJo9VdXihjOMZ3CFtZDEfUCxRnkTLouS2LMvKZ69vUpc22yVZq7XyfbnbnjERxD1Uymqs1qrfVe29MqE3wI1SwA=="
     }
     response = requests.get(url, headers=headers, params=params)
     if response.status_code == 200:
         return response.json()
     else:
         return "Failed to get json html"
+
 
 def parseJson(json, articleType):
     """
@@ -83,7 +83,7 @@ def parseJson(json, articleType):
         comments_count = article['comments_count']
         attitudes_count = article['attitudes_count']
 
-        region_name = article.get('region_name', '') .replace('发布于', '').strip()
+        region_name = article.get('region_name', '').replace('发布于', '').strip()
 
         created_at = datetime.strptime(article['created_at'], '%a %b %d %H:%M:%S %z %Y').strftime('%Y-%m-%d %H:%M:%S')
         articleUrl = "https://weibo.com/%s%s" % (article['user']['id'], article['mblogid'])
@@ -106,14 +106,14 @@ def parseJson(json, articleType):
 
 
 def writeToCsv(row):
-        """
+    """
         追加写入CSV文件
         :param arcTypelist:
         :return:
         """
-        with open('article_data.csv', 'a', encoding='utf-8', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(row)
+    with open('article_data.csv', 'a', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(row)
 
 
 def start():
